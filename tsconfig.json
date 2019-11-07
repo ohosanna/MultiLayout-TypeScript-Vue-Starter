@@ -14,7 +14,11 @@
     "baseUrl": ".",
     "types": ["node"],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"],
+      "@comps/*": ["./src/components/*"],
+      "@css/*": ["src/assets/css/*"],
+      "@scss/*": ["./src/assets/scss/*"],
+      "@img/*": ["./src/assets/images/*"]
     },
     "lib": ["es2016", "esnext", "dom", "dom.iterable", "scripthost"],
     "typeRoots": ["src/*", "src/@types/*"]
@@ -24,7 +28,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx", "src/entries/home.js"
   ],
   "exclude": ["node_modules", "src/assets/trading-view"]
 }

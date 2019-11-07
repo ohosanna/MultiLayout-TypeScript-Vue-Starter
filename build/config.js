@@ -1,20 +1,20 @@
 const path = require('path');
 
-function resolve(dir) {
-  return path.join('_dirname', '..', dir);
-}
+// function resolve(dir) {
+//   return path.join('_dirname', '..', dir);
+// }
 
-let entries = require('./utils.js').getEntry('src/entries/*.js');
+let entries = require('./utils.js').getEntry('src/entries/*.ts');
 
 const config = {
   entry: entries,
   alias: { // 别名配置
-    'vue$': 'vue/dist/vue.esm.js',
-    '@': resolve('src'),
-    '@comps': resolve('src/components'),
-    '@css': resolve('src/assets/css'),
-    '@scss': resolve('src/assets/scss'),
-    '@img': resolve('src/assets/images')
+    'vue$': 'vue/dist/vue.esm.js'
+    // '@': resolve('src'),
+    // '@comps': resolve('src/components'),
+    // '@css': resolve('src/assets/css'),
+    // '@scss': resolve('src/assets/scss'),
+    // '@img': resolve('src/assets/images')
   },
   esLint: {
     autoFix: false // 是否自动修改代码风格

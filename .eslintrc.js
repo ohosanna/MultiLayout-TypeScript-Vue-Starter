@@ -32,6 +32,7 @@ module.exports = {
     'new-cap': 0,
     'camelcase': 0,
     'no-new': 0,
+    // "import/no-unresolved": 0,
     // 设置typescript-eslint规则
     '@typescript-eslint/indent': ['error', 2],
     '@typescript-eslint/no-explicit-any': 0,

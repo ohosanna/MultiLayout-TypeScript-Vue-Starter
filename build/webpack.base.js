@@ -1,4 +1,5 @@
 const config = require('./config.js'),
+  TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin'),
   VueLoaderPlugin = require('vue-loader/lib/plugin.js');
 
 // function resolve(dir) {
@@ -14,7 +15,12 @@ let baseConfig = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.vue', '.json'],
-    alias
+    alias,
+    plugins: [
+      new TsconfigPathsPlugin({
+        // configFile: "./path/to/tsconfig.json"
+      })
+    ]
   },
   module: {
     rules: [
@@ -57,9 +63,7 @@ let baseConfig = {
       }
     ]
   },
-  plugins: [
-    new VueLoaderPlugin()
-  ]
+  plugins: [new VueLoaderPlugin()]
 };
 
 baseConfig = require('./utils.js').htmlConfig(baseConfig, './src/templates/*.html');

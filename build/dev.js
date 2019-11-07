@@ -36,7 +36,7 @@ let devConfig = {
   devtool: '#eval-source-map',
   plugins: [
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ]
 };
 let webpackConfig = merge({}, baseConfig, devConfig);
