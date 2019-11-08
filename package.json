@@ -13,6 +13,7 @@
   "dependencies": {
     "@types/jquery": "^3.3.29",
     "vue": "^2.6.10",
+    "vue-i18n": "^8.15.0",
     "vue-property-decorator": "^8.3.0",
     "vue-router": "^3.1.3"
   },

@@ -1,7 +1,19 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import VueI18n from 'vue-i18n';
+import cnLang from '@cn/home.js';
+import enLang from '@en/home.js';
 
 Vue.use(VueRouter);
+Vue.use(VueI18n);
+
+const i18n= new VueI18n({
+  locale: "en",
+  messages: {
+    'cn': cnLang,
+    'en': enLang 
+  }
+})
 
 const routes = [
   {
@@ -19,5 +31,6 @@ const router = new VueRouter({
 
 Vue.prototype.$bus = new Vue({
   el: '#app',
-  router
+  router,
+  i18n
 });
