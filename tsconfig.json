@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
+    "outDir": "",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
@@ -16,6 +17,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@comps/*": ["./src/components/*"],
+      "@views/*": ["./src/views/*"],
       "@cn/*": ["src/locales/cn/*"],
       "@en/*": ["src/locales/en/*"],
       "@css/*": ["src/assets/css/*"],

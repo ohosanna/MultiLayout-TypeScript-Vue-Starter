@@ -1,9 +1,9 @@
 'use strict';
 
-var css = require('css');
-var extend = require('extend');
+const css = require('css');
+const extend = require('extend');
 
-var defaultConfig = {
+const defaultConfig = {
   baseDpr: 2,             // base device pixel ratio (default: 2)
   remUnit: 75,            // rem unit value (default: 75)
   remPrecision: 6,        // rem value precision (default: 6)
@@ -11,7 +11,7 @@ var defaultConfig = {
   keepComment: 'no'       // no transform value comment (default: `no`)
 };
 
-var pxRegExp = /\b(\d+(\.\d+)?)px\b/;
+const pxRegExp = /\b(\d+(\.\d+)?)px\b/;
 
 function Px2rem(options) {
   this.config = {};
@@ -21,13 +21,13 @@ function Px2rem(options) {
 // generate @1x, @2x and @3x version stylesheet
 Px2rem.prototype.generateThree = function (cssText, dpr) {
   dpr = dpr || 2;
-  var self = this;
-  var config = self.config;
-  var astObj = css.parse(cssText);
+  const self = this;
+  const config = self.config;
+  const astObj = css.parse(cssText);
 
   function processRules(rules) {
-    for (var i = 0; i < rules.length; i++) {
-      var rule = rules[i];
+    for (let i = 0; i < rules.length; i++) {
+      const rule = rules[i];
       if (rule.type === 'media') {
         processRules(rule.rules); // recursive invocation while dealing with media queries
         continue;
@@ -38,12 +38,12 @@ Px2rem.prototype.generateThree = function (cssText, dpr) {
         continue;
       }
 
-      var declarations = rule.declarations;
-      for (var j = 0; j < declarations.length; j++) {
-        var declaration = declarations[j];
+      const declarations = rule.declarations;
+      for (let j = 0; j < declarations.length; j++) {
+        const declaration = declarations[j];
         // need transform: declaration && has 'px'
         if (declaration.type === 'declaration' && pxRegExp.test(declaration.value)) {
-          var nextDeclaration = rule.declarations[j + 1];
+          const nextDeclaration = rule.declarations[j + 1];
           if (nextDeclaration && nextDeclaration.type === 'comment') { // next next declaration is comment
             if (nextDeclaration.comment.trim() === config.keepComment) { // no transform
               declarations.splice(j + 1, 1); // delete corresponding comment
@@ -65,13 +65,13 @@ Px2rem.prototype.generateThree = function (cssText, dpr) {
 
 // generate rem version stylesheet
 Px2rem.prototype.generateRem = function (cssText) {
-  var self = this;
-  var config = self.config;
-  var astObj = css.parse(cssText);
+  const self = this,
+    config = self.config,
+    astObj = css.parse(cssText);
 
   function processRules(rules, noDealPx) { // FIXME: keyframes do not support `force px` comment
-    for (var i = 0; i < rules.length; i++) {
-      var rule = rules[i];
+    for (let i = 0; i < rules.length; i++) {
+      const rule = rules[i];
       if (rule.type === 'media') {
         processRules(rule.rules); // recursive invocation while dealing with media queries
         continue;
@@ -82,11 +82,11 @@ Px2rem.prototype.generateRem = function (cssText) {
         continue;
       }
 
+      const newRules = [];
       if (!noDealPx) {
         // generate 3 new rules which has [data-dpr]
-        var newRules = [];
-        for (var dpr = 1; dpr <= 3; dpr++) {
-          var newRule = {};
+        for (let dpr = 1; dpr <= 3; dpr++) {
+          const newRule = {};
           newRule.type = rule.type;
           newRule.selectors = rule.selectors.map(function (sel) {
             return '[data-dpr="' + dpr + '"] ' + sel;
@@ -96,12 +96,12 @@ Px2rem.prototype.generateRem = function (cssText) {
         }
       }
 
-      var declarations = rule.declarations;
-      for (var j = 0; j < declarations.length; j++) {
-        var declaration = declarations[j];
+      const declarations = rule.declarations;
+      for (let j = 0; j < declarations.length; j++) {
+        const declaration = declarations[j];
         // need transform: declaration && has 'px'
         if (declaration.type === 'declaration' && pxRegExp.test(declaration.value)) {
-          var nextDeclaration = rule.declarations[j + 1];
+          const nextDeclaration = rule.declarations[j + 1];
           if (nextDeclaration && nextDeclaration.type === 'comment') { // next next declaration is comment
             if (nextDeclaration.comment.trim() === config.forcePxComment) { // force px
               // do not transform `0px`
@@ -112,8 +112,8 @@ Px2rem.prototype.generateRem = function (cssText) {
               }
               if (!noDealPx) {
                 // generate 3 new declarations and put them in the new rules which has [data-dpr]
-                for (var dpr = 1; dpr <= 3; dpr++) {
-                  var newDeclaration = {};
+                for (let dpr = 1; dpr <= 3; dpr++) {
+                  const newDeclaration = {};
                   extend(true, newDeclaration, declaration);
                   newDeclaration.value = self._getCalcValue('px', newDeclaration.value, dpr);
                   newRules[dpr - 1].declarations.push(newDeclaration);
@@ -158,12 +158,12 @@ Px2rem.prototype.generateRem = function (cssText) {
 
 // get calculated value of px or rem
 Px2rem.prototype._getCalcValue = function (type, value, dpr) {
-  var config = this.config;
-  var pxGlobalRegExp = new RegExp(pxRegExp.source, 'g');
+  const config = this.config;
+  const pxGlobalRegExp = new RegExp(pxRegExp.source, 'g');
 
   function getValue(oval, val) {
     val = parseFloat(val.toFixed(config.remPrecision)); // control decimal precision of the calculated value
-    return val == 0 ? val : val + type + ` /* ${oval}px */`;
+    return val === 0 ? val : val + type + ` /* ${oval}px */`;
   }
 
   return value.replace(pxGlobalRegExp, function ($0, $1) {
@@ -172,7 +172,7 @@ Px2rem.prototype._getCalcValue = function (type, value, dpr) {
 };
 
 module.exports = function (source) {
-  var options = require('loader-utils').getOptions(this)
-  var px2remIns = new Px2rem(options)
-  return px2remIns.generateRem(source)
-}
+  const options = require('loader-utils').getOptions(this);
+  const px2remIns = new Px2rem(options);
+  return px2remIns.generateRem(source);
+};

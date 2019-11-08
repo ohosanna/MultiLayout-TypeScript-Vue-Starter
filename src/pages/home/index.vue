@@ -1,6 +1,6 @@
 <template>
   <div class="home-page">
-    <h1>{{$t('首页')}} {{$t('测试')}}</h1>
+    <topNav />
   </div>
 </template>
 

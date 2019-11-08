@@ -21,7 +21,7 @@ exports.cssLoaders = function(options) {
   const px2remLoader = {
     loader: path.resolve(__dirname, './px-to-rem/index.js'),
     options: {
-      remUnit: 37.5, // 设计稿宽度/10
+      remUnit: 16, // 设计稿宽度/10
       remPrecision: 3
     }
   };
@@ -38,14 +38,6 @@ exports.cssLoaders = function(options) {
         options: Object.assign({}, loaderOptions, {
           sourceMap: options.sourceMap
         })
-      });
-      loaders.push({
-        loader: 'sass-resources-loader',
-        options: {
-          resources: [
-            path.resolve(__dirname, '../src/assets/scss/_var.scss')
-          ]
-        }
       });
     }
 
@@ -65,8 +57,8 @@ exports.cssLoaders = function(options) {
   return {
     css: generateLoaders(),
     postcss: generateLoaders(),
-    sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass')
+    sass: generateLoaders('sass', { indentedSyntax: true, implementation: require('sass') }),
+    scss: generateLoaders('sass', { implementation: require('sass') })
   };
 };
 
@@ -86,9 +78,9 @@ exports.styleLoaders = function(options) {
 
 // 自动发现入口文件
 exports.getEntry = function(globPath, pathDir) {
-  let files = glob.sync(globPath);
-  let entries = {},
-    entry, dirname, basename, pathname, extname;
+  const files = glob.sync(globPath);
+  const entries = {};
+  let entry, dirname, basename, pathname, extname;
 
   for (let i = 0; i < files.length; i++) {
     entry = files[i];
@@ -106,10 +98,10 @@ exports.getEntry = function(globPath, pathDir) {
 
 // 根据模板文件生成html
 exports.htmlConfig = function(webpackConfig, tplPath) {
-  let pages = Object.keys(this.getEntry(tplPath)),
+  const pages = Object.keys(this.getEntry(tplPath)),
     configs = webpackConfig;
   pages.forEach(function(pathname) {
-    var conf = {
+    const conf = {
       filename: pathname + '/index.html', // 生成的html存放路径，相对于path
       template: 'src/templates/' + pathname + '.html', // html模板路径
       inject: false	// js插入的位置，true/'head'/'body'/false

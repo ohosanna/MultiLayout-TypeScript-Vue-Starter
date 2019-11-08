@@ -5,8 +5,8 @@ const config = require('./config.js'),
 // function resolve(dir) {
 //   return path.join('_dirname', '..', dir);
 // }
-const { entry, alias } = config;
-//  isProduction = process.env.TYPE === 'pro';
+const { entry, alias, esLint } = config,
+  isProduction = process.env.TYPE === 'pro';
 
 let baseConfig = {
   entry,
@@ -60,7 +60,21 @@ let baseConfig = {
             }
           }
         ]
-      }
+      },
+      {
+        test: /\.(js|vue|ts|tsx|jsx)$/,
+        enforce: 'pre',
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          fix: esLint.autoFix,
+          extensions: ['.js', '.jsx', '.vue', '.ts', '.tsx'],
+          cache: false,
+          emitWarning: true,
+          emitError: false
+        }
+      },
+      ...require('./utils.js').styleLoaders({ extract: isProduction })
     ]
   },
   plugins: [new VueLoaderPlugin()]

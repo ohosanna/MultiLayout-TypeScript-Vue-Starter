@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import VueI18n from 'vue-i18n';
 import cnLang from '@cn/home.js';
 import enLang from '@en/home.js';
+import '@scss/home.scss';
 
 Vue.use(VueRouter);
 Vue.use(VueI18n);
