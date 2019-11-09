@@ -1,4 +1,4 @@
-## MultiLayout-TypeScript-Vue-Starter
+## Bitbank 前端项目
 > webpack4
 > typescript
 > eslint
