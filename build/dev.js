@@ -30,7 +30,9 @@ let devConfig = {
   output: {
     filename: 'js/[name].js',
     path: outputPath,
-    publicPath: assetsPublicPath
+    publicPath: assetsPublicPath,
+    hotUpdateChunkFilename: 'hot/hot-update.js',
+    hotUpdateMainFilename: 'hot/hot-update.json'
   },
   mode: 'development',
   devtool: '#eval-source-map',

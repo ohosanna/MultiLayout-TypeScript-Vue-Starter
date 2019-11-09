@@ -1,8 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'),
   path = require('path'),
   glob = require('glob'),
-  HtmlWebpackPlugin = require('html-webpack-plugin'),
-  config = require('./config.js');
+  HtmlWebpackPlugin = require('html-webpack-plugin');
 
 exports.cssLoaders = function(options) {
   options = options || {};
@@ -97,18 +96,30 @@ exports.getEntry = function(globPath, pathDir) {
 };
 
 // 根据模板文件生成html
-exports.htmlConfig = function(webpackConfig, tplPath) {
-  const pages = Object.keys(this.getEntry(tplPath)),
-    configs = webpackConfig;
-  pages.forEach(function(pathname) {
+exports.layoutConfig = function(webpackConfig, layoutConfig) {
+  const layouts = layoutConfig,
+    configs = webpackConfig,
+    defaultTitle = 'BitBank';
+  layouts.forEach(function(layout) {
     const conf = {
-      filename: pathname + '/index.html', // 生成的html存放路径，相对于path
-      template: 'src/templates/' + pathname + '.html', // html模板路径
-      inject: false	// js插入的位置，true/'head'/'body'/false
+      title: defaultTitle,
+      filename: layout.name + '/index.html', // 生成的html存放路径，相对于path
+      template: 'src/templates/' + layout.tplName + '.html', // html模板路径
+      chunks: layout.commonChunks || [],
+      inject: false,	// js插入的位置，true/'head'/'body'/false
+      meta: {
+        keyworks: '',
+        description: ''
+      }
     };
-    if (pathname in webpackConfig.entry) {
+    if (layout.seoMeta) {
+      conf.title = layout.seoMeta.title;
+      conf.meta.keywords = layout.seoMeta.keywords;
+      conf.meta.description = layout.seoMeta.description;
+    }
+    if (layout.name in webpackConfig.entry) {
       conf.inject = 'body';
-      conf.chunks = ['vendors', pathname];
+      conf.chunks.push(layout.name);
       conf.hash = false;
     }
     configs.plugins.push(new HtmlWebpackPlugin(conf));

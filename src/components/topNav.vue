@@ -1,7 +1,9 @@
 <template>
   <div id="top-nav">
     <ul>
-      <li>Home</li>
+      <li>{{$t('Home')}}</li>
+      <li>{{$t('Login')}}</li>
+      <li>{{$t('Register')}}</li>
     </ul>
   </div>
 </template>

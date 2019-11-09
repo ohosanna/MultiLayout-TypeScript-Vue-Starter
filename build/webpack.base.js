@@ -5,7 +5,7 @@ const config = require('./config.js'),
 // function resolve(dir) {
 //   return path.join('_dirname', '..', dir);
 // }
-const { entry, alias, esLint } = config,
+const { entry, alias, esLint, layouts } = config,
   isProduction = process.env.TYPE === 'pro';
 
 let baseConfig = {
@@ -80,6 +80,6 @@ let baseConfig = {
   plugins: [new VueLoaderPlugin()]
 };
 
-baseConfig = require('./utils.js').htmlConfig(baseConfig, './src/templates/*.html');
+baseConfig = require('./utils.js').layoutConfig(baseConfig, layouts);
 
 module.exports = baseConfig;

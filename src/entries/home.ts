@@ -8,19 +8,19 @@ import '@scss/home.scss';
 Vue.use(VueRouter);
 Vue.use(VueI18n);
 
-const i18n= new VueI18n({
-  locale: "en",
+const i18n = new VueI18n({
+  locale: 'en',
   messages: {
     'cn': cnLang,
-    'en': enLang 
+    'en': enLang
   }
-})
+});
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: (): Promise<any> => import(/* webpackChunkName: "app" */ '@/pages/home/index.vue')
+    component: (): Promise<any> => import(/* webpackChunkName: "app" */ '@views/home/index.vue')
   }
 ];
 
