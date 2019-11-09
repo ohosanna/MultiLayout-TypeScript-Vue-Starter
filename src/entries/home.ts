@@ -1,13 +1,17 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueI18n from 'vue-i18n';
-import cnLang from '@cn/home.js';
-import enLang from '@en/home.js';
+import cnCommonLang from '@cn/common.json';
+import enCommonLang from '@en/common.json';
+import cnHomeLang from '@cn/home.json';
+import enHomeLang from '@en/home.json';
 import '@scss/home.scss';
 
 Vue.use(VueRouter);
 Vue.use(VueI18n);
 
+const cnLang = Object.assign({}, cnCommonLang, cnHomeLang);
+const enLang = Object.assign({}, enCommonLang, enHomeLang);
 const i18n = new VueI18n({
   locale: 'en',
   messages: {
