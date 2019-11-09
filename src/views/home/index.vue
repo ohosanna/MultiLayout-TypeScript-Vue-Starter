@@ -7,7 +7,7 @@
 <script lang='ts'>
 import { Component, Vue } from 'vue-property-decorator';
 // import { Toast } from '../../components'
-import topNav from '@comps/topNav.vue';
+import topNav from '@comps/top-nav.vue';
 
 @Component({
   components: {
