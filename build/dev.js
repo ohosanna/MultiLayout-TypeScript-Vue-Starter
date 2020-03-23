@@ -2,31 +2,32 @@ const baseConfig = require('./webpack.base.js'),
   webpack = require('webpack'),
   merge = require('webpack-merge'),
   WebpackDevServer = require('webpack-dev-server'),
-  config = require('./config.js');
+  config = require('./config.js')
 
 const {
   port,
   proxy,
   outputPath,
   assetsPublicPath
-} = config.dev;
+} = config.dev
 
-let customParams = JSON.parse(process.env.npm_config_argv).original,
-  newPort = port, portParamsIndex = customParams.indexOf('-p');
+const customParams = JSON.parse(process.env.npm_config_argv).original,
+  portParamsIndex = customParams.indexOf('-p')
+let newPort = port
 
 if (portParamsIndex > -1) {
-  let tempPort = customParams[portParamsIndex + 1];
+  const tempPort = customParams[portParamsIndex + 1]
   if (tempPort > 0) {
-    newPort = customParams[portParamsIndex + 1];
+    newPort = customParams[portParamsIndex + 1]
   } else {
-    console.log('端口号设置错误, 正确方式: -p 8080');
-    return;
+    console.log('端口号设置错误, 正确方式: -p 8080')
+    return
   }
 }
 if (customParams.indexOf('-o') > -1) {
-  isAutoOpen = true;
+  isAutoOpen = true
 }
-let devConfig = {
+const devConfig = {
   output: {
     filename: 'js/[name].js',
     path: outputPath,
@@ -38,10 +39,10 @@ let devConfig = {
   devtool: '#eval-source-map',
   plugins: [
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
   ]
-};
-let webpackConfig = merge({}, baseConfig, devConfig);
+}
+const webpackConfig = merge({}, baseConfig, devConfig)
 const opts = {
   contentBase: [outputPath],
   watchContentBase: true,
@@ -59,9 +60,9 @@ const opts = {
   },
   proxy,
   stats: 'errors-only'
-};
-WebpackDevServer.addDevServerEntrypoints(webpackConfig, opts);
-const compiler = webpack(webpackConfig);
+}
+WebpackDevServer.addDevServerEntrypoints(webpackConfig, opts)
+const compiler = webpack(webpackConfig)
 
 new WebpackDevServer(compiler, opts)
-  .listen(newPort, '0.0.0.0');
+  .listen(newPort, '0.0.0.0')

@@ -1,7 +1,7 @@
 {
-  "name": "multilayout-typescript-vue-starter",
+  "name": "showmoney-web",
   "version": "1.0.0",
-  "description": "multilayout typescript vue starter",
+  "description": "showmoney vue 项目",
   "author": "ohosanna",
   "scripts": {
     "dev": "cross-env TYPE=dev node build/dev.js",

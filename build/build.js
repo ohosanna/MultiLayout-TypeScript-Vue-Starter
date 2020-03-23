@@ -4,16 +4,16 @@ const webpack = require('webpack'),
   config = require('./config.js'),
   Terser = require('terser-webpack-plugin'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin'),
-  BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+  BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const {
   sourceMap,
   outputPath,
   // assetsSubDirectory,
   assetsPublicPath
-} = config.build;
+} = config.build
 
-let buildConfig = {
+const buildConfig = {
   mode: 'production',
   externals: config.externals || {},
   plugins: [
@@ -21,7 +21,7 @@ let buildConfig = {
       filename: 'css/[name].[chunkhash:4].css',
       chunkFilename: 'css/[name].[chunkhash:4].css',
       publicPath: '../'
-    })
+    }),
   ],
   module: {
     noParse: /^(vue|vue-router|vuex|vuex-router-sync)$/

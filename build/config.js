@@ -1,20 +1,19 @@
-const path = require('path');
-
-const entries = require('./utils.js').getEntry('src/entries/*.ts');
+const path = require('path')
+const entries = require('./utils.js').getEntry('src/entries/*.ts')
 
 const config = {
   entry: entries,
   layouts: [
     {
-      name: 'home', // 生成的html目录名称
+      name: 'main', // 生成的html目录名称
       tplName: 'home', // 模板文件名，在src/templates目录下
       commonChunks: ['vendors'], // 需要加载的公共JS资源
       seoMeta: {
-        title: '首页',
-        keywords: '比特币, 数字钱包',
+        title: 'showMoney',
+        keywords: 'BSV, 数字钱包',
         description: ''
       }
-    }
+    },
   ],
   alias: { // 别名配置
     'vue$': 'vue/dist/vue.esm.js'
@@ -42,6 +41,6 @@ const config = {
   externals: {
 
   }
-};
+}
 
-module.exports = config;
+module.exports = config
