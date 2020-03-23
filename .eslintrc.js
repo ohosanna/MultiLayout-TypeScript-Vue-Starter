@@ -18,12 +18,21 @@ module.exports = {
   ],
   rules: {
     // 设置默认eslint规则
+    "comma-dangle": [2,
+      {
+        arrays: "always-multiline",
+        objects: "only-multiline",
+        imports: "never",
+        exports: "never",
+        functions: "never"
+      }
+    ],
     'one-var': 0,
     'arrow-parens': 0,
     'generator-star-spacing': 0,
     'no-debugger': 0,
     'no-console': 0,
-    'semi': [2, 'always'],
+    'semi': [1, 'never'],
     'no-extra-semi': 2,
     'space-before-function-paren': 0,
     'no-useless-escape': 0,
