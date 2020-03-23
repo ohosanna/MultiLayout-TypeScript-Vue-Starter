@@ -1,4 +1,4 @@
-## Bitbank 前端项目
+## 多模板多 html 入口 typescript vue 项目
 > webpack4
 > typescript
 > eslint
@@ -60,6 +60,31 @@ yarn run build
   - 多语言使用 vue-i18n 来实现，参考文档 https://kazupon.github.io/vue-i18n/zh/introduction.html
 
 ### Nginx 配置样例
+```
+server {
+    listen  80 default_server;
+    listen [::]:80 default_server;
+
+    server_name test.blocklink.com;
+
+    root /path/to/project_root/dist/test/;
+
+    location / {
+        root /path/to/project_root/dist/test/;
+        try_files $uri $uri/ @rewrite;
+    }
+
+    location @rewrite {
+        rewrite ^(/\w+)/\w+$ $1/index.html last;
+    }
+
+    location ~* \.(?:ico|css|js|gif|jpe?g|png)$ {
+        expires max;
+        add_header Pragma public;
+        add_header Cache-Control "public, must-revalidate, proxy-revalidate";
+    }
+}
+```
 
 ### 推荐vscode插件
 

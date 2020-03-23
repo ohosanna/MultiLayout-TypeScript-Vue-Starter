@@ -1,7 +1,7 @@
 {
-  "name": "bitbank_web",
+  "name": "multilayout-typescript-vue-starter",
   "version": "1.0.0",
-  "description": "bitbank_web",
+  "description": "multilayout typescript vue starter",
   "author": "ohosanna",
   "scripts": {
     "dev": "cross-env TYPE=dev node build/dev.js",
