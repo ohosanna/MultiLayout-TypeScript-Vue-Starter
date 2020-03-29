@@ -5,7 +5,7 @@ const config = {
   entry: entries,
   layouts: [
     {
-      name: 'main', // 生成的html目录名称
+      name: 'home', // 生成的html目录名称
       tplName: 'home', // 模板文件名，在src/templates目录下
       commonChunks: ['vendors'], // 需要加载的公共JS资源
       seoMeta: {
