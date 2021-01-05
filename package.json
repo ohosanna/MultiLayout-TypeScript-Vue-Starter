@@ -11,7 +11,7 @@
     "analyz": "cross-env Analyz=1 TYPE=prod node build/build.js"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "vue": "^2.6.10",
     "vue-i18n": "^8.15.0",
     "vue-property-decorator": "^8.3.0",
