@@ -1,6 +1,6 @@
 const baseConfig = require('./webpack.base.js'),
   webpack = require('webpack'),
-  merge = require('webpack-merge'),
+  { merge } = require('webpack-merge'),
   WebpackDevServer = require('webpack-dev-server'),
   config = require('./config.js')
 
@@ -36,9 +36,8 @@ const devConfig = {
     hotUpdateMainFilename: 'hot/hot-update.json'
   },
   mode: 'development',
-  devtool: '#eval-source-map',
+  devtool: 'eval-cheap-module-source-map',
   plugins: [
-    new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ]
 }

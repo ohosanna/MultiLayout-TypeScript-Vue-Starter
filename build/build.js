@@ -1,6 +1,6 @@
 const webpack = require('webpack'),
   baseConfig = require('./webpack.base'),
-  merge = require('webpack-merge'),
+  { merge } = require('webpack-merge'),
   config = require('./config.js'),
   Terser = require('terser-webpack-plugin'),
   MiniCssExtractPlugin = require('mini-css-extract-plugin'),

@@ -7,10 +7,10 @@ const config = {
     {
       name: 'home', // 生成的html目录名称
       tplName: 'home', // 模板文件名，在src/templates目录下
-      commonChunks: ['vendors'], // 需要加载的公共JS资源
+      commonChunks: ['vendors', 'common'], // 需要加载的公共JS资源
       seoMeta: {
-        title: 'showMoney',
-        keywords: 'BSV, 数字钱包',
+        title: 'vue-demo',
+        keywords: 'vue-demo',
         description: ''
       }
     },

@@ -1,5 +1,7 @@
 const config = require('./config.js'),
+  path = require('path'),
   TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin'),
+  ESLintPlugin = require('eslint-webpack-plugin'),
   VueLoaderPlugin = require('vue-loader/lib/plugin.js');
 
 // function resolve(dir) {
@@ -22,15 +24,14 @@ let baseConfig = {
       })
     ]
   },
+  cache: {
+    type: 'filesystem',
+  },
   module: {
     rules: [
       {
         test: /\.vue$/,
         use: [
-          {
-            loader: 'cache-loader',
-            options: {}
-          },
           {
             loader: 'vue-loader',
             options: {
@@ -43,11 +44,7 @@ let baseConfig = {
       },
       {
         test: /\.ts$/,
-        loaders: [
-          {
-            loader: 'cache-loader',
-            options: {}
-          },
+        use: [
           {
             loader: 'thread-loader'
           },
@@ -61,23 +58,28 @@ let baseConfig = {
           }
         ]
       },
-      {
-        test: /\.(js|vue|ts|tsx|jsx)$/,
-        enforce: 'pre',
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          fix: esLint.autoFix,
-          extensions: ['.js', '.jsx', '.vue', '.ts', '.tsx'],
-          cache: false,
-          emitWarning: true,
-          emitError: false
-        }
-      },
+      // {
+      //   test: /\.(js|vue|ts|tsx|jsx)$/,
+      //   enforce: 'pre',
+      //   exclude: /node_modules/,
+      //   loader: 'eslint-loader',
+      //   options: {
+      //     fix: esLint.autoFix,
+      //     extensions: ['.js', '.jsx', '.vue', '.ts', '.tsx'],
+      //     cache: false,
+      //     emitWarning: true,
+      //     emitError: false
+      //   }
+      // },
       ...require('./utils.js').styleLoaders({ extract: isProduction })
     ]
   },
-  plugins: [new VueLoaderPlugin()]
+  plugins: [
+    new VueLoaderPlugin(),
+    new ESLintPlugin({
+      extensions: ['.js', '.jsx', '.vue', '.ts', '.tsx'],
+    })
+  ]
 };
 
 baseConfig = require('./utils.js').layoutConfig(baseConfig, layouts);
